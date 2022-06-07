@@ -1,0 +1,13 @@
+0.p = Random with probability p to defect
+0 = Always cooperate
+1 = Always defect
+2 = Tit for tat
+2.1 = Tit for two tats
+2.2 = Two Tits for tat
+3 = Grudge
+4.0 = Majority, default defect
+4.1 = Majority, default cooperate
+5 = Second Chance
+
+0 is defect
+1 is cooperate
