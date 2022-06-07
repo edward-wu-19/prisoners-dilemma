@@ -4,8 +4,13 @@ import java.io.*;
 public class sim_adv{
 
     public static double[][] points = {{0,0},{5,4}};
+    public static String[] given_strategies = {"Always defect", "Always cooperate", "Tit for Tat", "Tit for Two Tats", "Two Tits for Tat", "Grudge", "Majority, default Defect", "Majority, default Cooperate", "Second Chance"};
+
+    public static String[] full_strategies = {"Always cooperate", "Random, 10% defect", "Random, 20% defect", "Random, 30% defect", "Random, 40% defect", "Random, 50% defect", "Random, 60% defect", "Random, 70% defect", "Random, 80% defect", "Random, 90% defect", "Always defect", "Tit for Tat", "Tit for Two Tats", "Two Tits for Tat", "Grudge", "Majority, default Defect", "Majority, default Cooperate", "Second Chance"};
 
     public static void main(String[] args){
+        System.out.println(); 
+
         // int[] test = playRandom(1, 0, nash);
         // System.out.println(test[0] + " and " + test[1]);
 
@@ -27,6 +32,26 @@ public class sim_adv{
         // writeToCsv(averages, "averages.csv");
     }
 
+    public static void printResults(double[][] arr){
+        for (int i = 0; i < arr.length; i++){
+            System.out.printf("%-26s\t", full_strategies[i]);
+            double[] row = arr[i];
+            for (double x : row){
+                System.out.print(x + "\t");
+            }
+            System.out.println();
+        }
+        System.out.println();
+    }
+
+    public static void printResults(double[] arr){
+        for (int i = 0; i < arr.length; i++){
+            System.out.printf("%-26s\t", full_strategies[i]);
+            System.out.println(arr[i]);
+        }
+        System.out.println();
+    }
+
     public static double[] runExperimentGetAverages(int n){
         double[][] results = runExperiment(n);
 
@@ -44,9 +69,15 @@ public class sim_adv{
 
         writeToCsv(results, "results.csv");
 
+        System.out.println("Results");
+        printResults(results);
+
         double[] averages = average(results, n);
 
         writeToCsv(averages, "averages.csv");
+
+        System.out.println("Averages");
+        printResults(averages);
     }
 
     public static double[] average(double[][] results, int n){
@@ -56,6 +87,7 @@ public class sim_adv{
                 averages[i]+= results[i][j];
             }
             averages[i]/= (n+7);
+            averages[i] = Math.round(100.0 * averages[i]) / 100.0;
         }
         return averages;
     }

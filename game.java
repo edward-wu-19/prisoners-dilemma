@@ -4,15 +4,18 @@ import Jama.Matrix;
 import Jama.SingularValueDecomposition;
 
 public class game extends sim_adv{
-
-    public static String[] given_strategies = {"Always defect", "Always cooperate", "Tit for Tat", "Tit for Two Tats", "Two Tits for Tat", "Grudge", "Majority, default Defect", "Majority, default Cooperate", "Second Chance"};
+    
+    public static int str_length = 8;
+    public static int trials = 4;
 
     public static void main(String[] args){
         
         print_rules();
 
-        double[][] data = gather_results(4);
+        double[][] data = gather_results(trials);
 
+        System.out.println("============================================================");
+        System.out.println("How many of your answers aligned with each of the following strategies? Maximum is " + str_length + ".");
         printResults(data);
 
         // System.out.println(data[0][0]); // 0
@@ -58,6 +61,7 @@ public class game extends sim_adv{
         for (int i = 0; i < arr1.length; i++){
             sum+= arr1[i] * arr2[i];
         }
+        sum = Math.round(100.0 * sum) / 100.0;
         return sum;
     }
 
@@ -80,7 +84,7 @@ public class game extends sim_adv{
                 mag+= Math.pow(arr[j][i], 2);
             }
             mag = Math.pow(mag, 0.5);
-            System.out.println(mag);
+            // System.out.println(mag);
             for (int j = 0; j < arr.length; j++){
                 arr[j][i] = Math.round(100.0 * arr[j][i] / mag) / 100.0;
             }
@@ -148,7 +152,7 @@ public class game extends sim_adv{
             System.out.println("Game " + (i+1) + "!\n");
 
             // generate test string
-            String str = randomString(8);
+            String str = randomString(str_length);
 
             String input = enterInfo(str);
 
